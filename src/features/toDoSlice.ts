@@ -1,10 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-interface CounterState  {
-    toDoList:any,
-}
+import IToDoItem from "../app/models/IToDoItem";
 
-const initialState: CounterState = {
-    toDoList:[]
+const initialState= {
+    toDoList: [] as IToDoItem[]
 }
 
 const toDoSlice = createSlice({
@@ -15,20 +13,21 @@ const toDoSlice = createSlice({
             state.toDoList.push(action.payload)
         },
         setCheck:(state,action)=>{
-            state.toDoList.map(item=>{
+            state.toDoList.map((item:IToDoItem)=>{
                 if(action.payload===item.id){
-                    if(item.done==true){
+                    if(item.done===true){
                         item.done=false
                     }
                     else{
                         item.done=true;
                     }
                 }
+                return 0;
             })
         }
     }
 })
 
 export const {saveToDo, setCheck} = toDoSlice.actions;
-export const selectToDoList = (state)=>state.todos.toDoList;
+export const selectToDoList = (state: { todos: { toDoList: any; }; })=>state.todos.toDoList;
 export default toDoSlice.reducer;

@@ -4,7 +4,12 @@ import Checkbox from "@mui/material/Checkbox"
 import {useDispatch} from "react-redux"
 import { setCheck } from "../../features/toDoSlice";
 
-export default function ToDoItem(props){
+interface IToDoItem{
+  name:{item:string},
+  id: string,
+  done:boolean,
+}
+export default function ToDoItem(props:IToDoItem){
     const dispatch = useDispatch();
     const handleCheck = ()=>{
         dispatch(setCheck(props.id));
@@ -18,7 +23,7 @@ export default function ToDoItem(props){
           onChange={handleCheck}
           inputProps={{ "aria-label": "Checkbox demo" }}
         />
-        <p className={props.done && "toDoItem--done"}>{props.name}</p>
+        <p className={props.done ? "toDoItem--done":""}>{props.name}</p>
       </div>
     )
 }
